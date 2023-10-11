@@ -1,12 +1,13 @@
 //
-//  DetailViewController.swift
+//  DetailView.swift
 //  21-HW - HarryPotter-Alamofire
 //
-//  Created by 1234 on 08.10.2023.
+//  Created by 1234 on 09.10.2023.
 //
 
 import UIKit
-class DetailViewController: UIViewController {
+
+final class DetailView: UIView {
     
     var data: [Characters] = []
 
@@ -14,13 +15,13 @@ class DetailViewController: UIViewController {
 
     var character: Characters? {
         didSet {
-            name.text = "NAME:\n\(character?.name ?? "unknown")."
-            dateOfBirth.text = "DATE OF BIRTH: \(character?.dateOfBirth ?? "unknown")."
-            ancestry.text = "ANCESTRY: \(character?.ancestry ?? "unknown")."
-            house.text = "FACULTY OF HOGWARTS: \(character?.house ?? "unknown")."
-            patronus.text = "TYPE PATRONUS: \(character?.patronus ?? "unknown")."
-            eyeColour.text = "EYE COLOUR: \(character?.eyeColour ?? "unknown")."
-            hairColour.text = "HAIR COLOUR: \(character?.hairColour ?? "unknown")."
+            name.text = "NAME:  \(character?.name ?? "unknown")."
+            dateOfBirth.text = "DATE OF BIRTH:  \(character?.dateOfBirth ?? "unknown")."
+            ancestry.text = "ANCESTRY:  \(character?.ancestry ?? "unknown")."
+            house.text = "FACULTY OF HOGWARTS:  \(character?.house ?? "unknown")."
+            patronus.text = "TYPE PATRONUS:  \(character?.patronus ?? "unknown")."
+            eyeColour.text = "EYE COLOUR:  \(character?.eyeColour ?? "unknown")."
+            hairColour.text = "HAIR COLOUR:  \(character?.hairColour ?? "unknown")."
 
             if  let imagePath = self.character?.image,
                 let imageURL = URL(string: imagePath){
@@ -137,34 +138,36 @@ class DetailViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-
-    // MARK: - Lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    
+    // MARK: - Initializers
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupView()
         setupHierarhy()
         setupLayout()
     }
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("Error in Cell")
+    }
+   
     // MARK: - Setup
 
     private func setupView() {
-        view.backgroundColor = .brown
+        self.backgroundColor = .brown
     }
 
-                                                       
     private func setupHierarhy() {
-        view.addSubview(viewContainerNew)
+        self.addSubview(viewContainerNew)
         viewContainerNew.addSubview(iconNew)
-        view.addSubview(stack)
+        self.addSubview(stack)
     }
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            viewContainerNew.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            viewContainerNew.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            viewContainerNew.centerXAnchor.constraint(equalTo: centerXAnchor),
+            viewContainerNew.topAnchor.constraint(equalTo: topAnchor, constant: 40),
             viewContainerNew.widthAnchor.constraint(equalToConstant: 250),
             viewContainerNew.heightAnchor.constraint(equalToConstant: 400),
 
@@ -174,7 +177,7 @@ class DetailViewController: UIViewController {
             iconNew.leftAnchor.constraint(equalTo: viewContainerNew.leftAnchor, constant: 3),
 
             stack.topAnchor.constraint(equalTo: viewContainerNew.bottomAnchor, constant: 50),
-            stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stack.centerXAnchor.constraint(equalTo: centerXAnchor),
             stack.widthAnchor.constraint(equalToConstant: 250),
             stack.heightAnchor.constraint(equalToConstant: 200),
         ])

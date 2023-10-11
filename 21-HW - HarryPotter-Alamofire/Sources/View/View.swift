@@ -14,15 +14,19 @@ final class MainView: UIView {
     var data: [Characters] = []
     
     public lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.backgroundColor = .brown
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
+    
     
     // MARK: - Initializers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .clear
         setupHierarhy()
         setupLayout()
     }
@@ -35,11 +39,14 @@ final class MainView: UIView {
         
     private func setupHierarhy() {
         self.addSubview(tableView)
+       
     }
     
     private func setupLayout() {
         tableView.frame = self.bounds
         tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        
+       
     }
 }
 
